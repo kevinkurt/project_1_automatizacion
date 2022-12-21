@@ -1,0 +1,132 @@
+
+  APUNTES GENERALES PARA CREACION DE UN PROYECTO DE AUTOMATIZACION
+
+
+  ----------------------------------------------------------
+  *****crear un archivo serenity.properties*****
+
+  debe contener los siguientes datos:
+
+
+
+  serenity.project.name =proyecto_1_automatizacion
+  webdriver.driver =chrome
+  webdriver.chrome.driver=C:/Users/KEVIN KURT/IdeaProjects/proyecto_1_automatizacion/chromedriver.exe
+  chrome.switches=--start-maximized.--enable-automation,--no-sandbox,--disable-gpu--sandbox
+  webdriver.timeouts.implitlywait=15000
+  webdriver.wait.for.timeout=15000
+  serenity.browser.maximized=true
+  serenity.report.encoding=UTF-8
+  feature.file.encoding=UTF-8
+
+  ----------------------------------------------------------
+ ******* en el archivo de build gradle *************
+
+ plugins {
+     id 'java'
+ }
+
+ group 'org.example'
+ version '1.0-SNAPSHOT'
+
+ repositories {
+     mavenCentral()
+ }
+
+
+ ext {
+     serenityVersion = '2.1.4'
+     serenityCucumberVersion = '1.9.51'
+     restassuredVersion = '4.2.0'
+     appiumVersion = '7.5.1'
+     devcoVersion = '1.3.11'
+     lombokVersion = '1.18.4'
+     junitVersion = '4.12'
+ }
+
+ dependencies {
+     implementation "junit:junit:$rootProject.ext.junitVersion"
+     implementation "net.serenity-bdd:serenity-core:$rootProject.ext.serenityVersion"
+     implementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
+     implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
+     implementation "net.serenity-bdd:serenity-screenplay-webdriver:$rootProject.ext.serenityVersion"
+     implementation "net.serenity-bdd:serenity-screenplay-rest:$rootProject.ext.serenityVersion"
+     implementation "net.serenity-bdd:serenity-cucumber:$rootProject.ext.serenityCucumberVersion"
+     implementation "net.serenity-bdd:serenity-ensure:$rootProject.ext.serenityVersion"
+     //implementation "io.rest-assured:json-schema-validator:$rootProject.ext.restassuredVersion"
+     //implementation "io.rest-assured:json-path:$rootProject.ext.restassuredVersion"
+     //implementation "io.appium:java-client:$rootProject.ext.appiumVersion"
+     //implementation "co.com.devco.automation:automationDevcoLibrary:$rootProject.ext.devcoVersion"
+     //compileOnly "org.projectlombok:lombok:$rootProject.ext.lombokVersion"
+     //annotationProcessor "org.projectlombok:lombok:$rootProject.ext.lombokVersion"
+     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+     implementation group: 'com.codoid.products', name: 'fillo', version: '1.18'
+     implementation 'org.slf4j:slf4j-api:2.0.3'
+     implementation 'org.slf4j:slf4j-simple:2.0.3'
+ }
+
+ test {
+     testLogging.showStandardStreams = true
+     testLogging.exceptionFormat = 'full'
+     systemProperties System.getProperties()
+     systemProperty 'file.encoding', 'UTF-8'
+     systemProperty "cucumber.options", System.getProperty("cucumber.options")
+
+
+
+ }
+
+ -----------------------------------------------------------------------
+
+ ***************archivo chromedirver ****************
+
+ este archivo chromedriver debe contener la ultima version o version instalada
+ de tu chrome y debe estar ubicado en las siguientes direcciones:
+
+ - como archivo en el proyecto C:\Users\KEVIN KURT\IdeaProjects\proyecto_1_automatizacion\chromedriver.exe
+ - como archivo en las carpetas del proyecto resources/driver/chromedriver.exe (en la carpeta principal de TEST)
+
+ ------------------------------------------------------------------------
+
+ **********Version del gradle*******
+
+ se utiliza la version 7.3.3 (de preferencia)
+ se debe crear una variable de entorno en el sistema GRADLE_HOME
+ esa variable la ubicas en el path como %GRADLE_HOME%
+
+ --------------------------------------------------------------------------
+
+*******version del JDK***********
+
+la version del JDK debe ser 8 (1.8) es estable y recomendable
+ya que se instalan las otras versiones del JDK y no funciona las ejecuciones
+ubicar en la carpeta y colocar variable JAVA_HOME en las variable de entorno y llamarla
+tambien %JAVA_HOME% en el path
+
+-------------------------------------------------------------------
+
+******creacion de carpetas en la carpeta principal MAIN******
+
+-enums
+-interactions
+-questions
+-tasks
+-userinterface
+-utils
+
+dependiendo que se valla a hacer en el proyecto se utilizan esas carpetas
+
+--------------------------------------------------------------------
+
+**********creacion de carpetas en la carpeta principal de TEST************
+
+como se esta utilizando el patron de diseño Screenplay se utilizan solo dos carpetas
+principales
+
+-runners (se crean las clases para la ejecucion de los pasos )
+-stepsDefinitions (se hace el llamado de los metodos con sus actores)
+
+-------------------------------------------------------------------
+
+
+

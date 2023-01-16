@@ -47,7 +47,4 @@ test {
     systemProperties System.getProperties()
     systemProperty 'file.encoding', 'UTF-8'
     systemProperty "cucumber.options", System.getProperty("cucumber.options")
-
-
-
 }
